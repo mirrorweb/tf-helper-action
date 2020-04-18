@@ -8,8 +8,8 @@ jobs:
     - uses: actions/checkout@v2
     - uses: ./
       with:
-        1: "pullvars:::-var cf_default_root_object"
-        2: "pushconfig:::-message \"Github Action Testing\" -vcs 0 -current-config false"
+        1: "\"pullvars:::-var cf_default_root_object\""
+        2: "\"pushconfig:::-message \"Github Action Testing\" -vcs 0 -current-config false\""
       env:
         TFH_token: ${{ secrets.TFH_TOKEN }}
         TFH_org: mirrorweb
