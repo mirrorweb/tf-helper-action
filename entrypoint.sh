@@ -6,8 +6,8 @@ readonly delimiter=":::"
 
 for arg in $(env | grep 'INPUT_');do
     if [[ $arg == *$delimiter* ]];then
-        subcommand="$(echo $arg | awk -F':::' '{print $1}')"
-        options="$(echo $arg | awk -F':::' '{print $2}')"
+        subcommand="$(echo $arg | sed 's/^.*INPUT_.*=//' | awk -F':::' '{print $1}')"
+        options="$(echo $arg | sed 's/^.*INPUT_.*=//' | awk -F':::' '{print $2}')"
         if [[ ${subcommand} == "pushconfig" ]]; then
             tfh ${subcommand} ${options}
         elif [[ ${subcommand} == "pushvars" ]]; then
