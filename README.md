@@ -6,7 +6,6 @@ In it's current state all it provides is a docker container providing access to 
 
 ## Disclaimer
 
-Input sanitisation of the inputted command needs to be added to this action, care should be take with the commands in the interim.
 Due to the nature of it's interaction with Terraform this action is potentially destructive, although your Terraform Cloud configuration
 should prevent this.
 
@@ -16,6 +15,8 @@ Place in a `.yml` file such as this one in your `.github/workflows` folder. [Ref
 
 The example below will trigger a queue action on the workspace specified in TFH_NAME for the organization in Terraform Cloud specified in TFH_ORG.
 
+The message field for `pushconfig` commands must not have spaces in it for the time being due to some issues with how Github Actions formats INPUT vars.
+
 ```yaml
 name: TF Helper Action
 on: push
@@ -24,19 +25,20 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: mirrorweb/tf-helper-action@master
+    - uses: actions/checkout@v2
+    - uses: ./
       with:
-        cmd: tfh pushconfig -vcs 0 -current-config false
+        1: "\"pullvars:::-var cf_default_root_object\""
+        2: "\"pushconfig:::-message GithubActionTesting -vcs 0 -current-config false\""
       env:
         TFH_token: ${{ secrets.TFH_TOKEN }}
-        TFH_org: ${{ secrets.TFH_ORG }}
-        TFH_name: ${{ secrets.TFH_NAME }}
+        TFH_org: mirrorweb
+        TFH_name: mw-tna-dmz-staging
 ```
 
-Essentially the `cmd` argument accepts any valid sh command so actions can be chained, Eg:- bash -c "tfh pushconfig ; tfh pullvars".
+Only `pullvars`, `pushvars` and `pushconfig` are currently supported.
 
-A full list of available commands can be found in the [tf-helper](https://github.com/hashicorp-community/tf-helper) repo.
+A full information on the available commands can be found in the [tf-helper](https://github.com/hashicorp-community/tf-helper) repo.
 
 ## Configuration
 
