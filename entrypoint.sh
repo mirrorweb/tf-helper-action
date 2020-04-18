@@ -3,7 +3,6 @@
 set -x
 
 readonly delimiter=":::"
-declare -A args
 
 for arg in "$@";do
     if [[ $arg == *$delimiter* ]];then
