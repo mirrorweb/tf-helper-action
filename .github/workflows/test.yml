@@ -1,0 +1,15 @@
+name: TF Helper Action
+on: push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ./
+      with:
+        cmd: tfh help
+      env:
+        TFH_token: ${{ secrets.TFH_TOKEN }}
+        TFH_org: mirrorweb
+        TFH_name: mw-core-dev
