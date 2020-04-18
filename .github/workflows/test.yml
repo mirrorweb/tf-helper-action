@@ -8,8 +8,9 @@ jobs:
     - uses: actions/checkout@v2
     - uses: ./
       with:
-        cmd: tfh help
+        cmd: |
+            bash -c "tfh pushconfig -message \"Github Action Testing\" -vcs 0 -current-config false"
       env:
         TFH_token: ${{ secrets.TFH_TOKEN }}
         TFH_org: mirrorweb
-        TFH_name: mw-core-dev
+        TFH_name: mw-tna-dmz-staging
