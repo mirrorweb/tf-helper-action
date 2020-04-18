@@ -4,7 +4,7 @@ set -x
 
 readonly delimiter=":::"
 
-for arg in "$@";do
+for arg in $(env | grep 'INPUT_');do
     if [[ $arg == *$delimiter* ]];then
         subcommand="$(echo $arg | awk -F':::' '{print $1}')"
         options="$(echo $arg | awk -F':::' '{print $2}')"
