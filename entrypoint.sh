@@ -3,7 +3,8 @@ set -x
 
 readonly delimiter=":::"
 
-for arg in $(env | grep 'INPUT_');do
+#for arg in $(env | grep 'INPUT_');do
+while IFS= read -r arg; do
     echo $arg
 #    if [[ $arg == *$delimiter* ]];then
 #        subcommand="$(echo $arg | sed 's/^.*INPUT_.*="//' | awk -F':::' '{print $1}')"
@@ -18,6 +19,6 @@ for arg in $(env | grep 'INPUT_');do
 #            echo "tfh subcommand ${subcommand} not yet supported"
 #        fi
 #    fi
-done
+done < <( env | grep 'INPUT_')
 
 # End
