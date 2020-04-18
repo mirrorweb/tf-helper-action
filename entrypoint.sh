@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -x
+
 readonly delimiter=":::"
 declare -A args
 
@@ -8,11 +10,11 @@ for arg in "$@";do
         subcommand="$(echo $arg | awk -F':::' '{print $1}')"
         options="$(echo $arg | awk -F':::' '{print $2}')"
         if [[ ${subcommand} == "pushconfig" ]]; then
-            echo tfh ${subcommand} ${options}
+            tfh ${subcommand} ${options}
         elif [[ ${subcommand} == "pushvars" ]]; then
-            echo tfh ${subcommand} ${options}
+             tfh ${subcommand} ${options}
         elif [[ ${subcommand} == 'pullvars' ]]; then
-            echo tfh ${subcommand} ${options}
+            tfh ${subcommand} ${options}
         else
             echo "tfh subcommand ${subcommand} not yet supported"
         fi
