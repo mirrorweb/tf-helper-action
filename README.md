@@ -32,8 +32,8 @@ jobs:
         2: "\"pushconfig:::-message GithubActionTesting -vcs 0 -current-config false\""
       env:
         TFH_token: ${{ secrets.TFH_TOKEN }}
-        TFH_org: mirrorweb
-        TFH_name: mw-tna-dmz-staging
+        TFH_org: <organization>
+        TFH_name: <workspace>
 ```
 
 Only `pullvars`, `pushvars` and `pushconfig` are currently supported.
